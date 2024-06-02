@@ -1,16 +1,20 @@
 import { useTaskStore } from "@/store/store";
+import { Button } from "../button";
 
 /* 
   Task should be showing the date where they were complete it
-  Fix bug of adding a task to pastTask array for every change in the checkbox
   fix only show 5 past task per sections, add pages to see past task
-  */
+ */
 export default function PastTask() {
   const { pastUserTask, deletePastTask, resetPastTask } = useTaskStore();
 
   return (
     <>
-      <button onClick={() => resetPastTask()}>Reset all</button>
+      <div className="flex justify-between">
+        <h3>Past Task</h3>
+        <Button onClick={() => resetPastTask()}>Clear all</Button>
+      </div>
+
       {pastUserTask.map(({ taskName, id }) => (
         <div className="flex m-2 ring-2 p-2 rounded-lg w-96 ring-zinc-600">
           <p

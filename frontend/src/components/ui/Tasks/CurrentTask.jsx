@@ -1,7 +1,6 @@
 import { Checkbox } from "../checkbox";
 import { Button } from "../button";
 import { useTaskStore } from "@/store/store";
-import { useEffect } from "react";
 
 export default function CurrentTask({ taskName, id }) {
   const {
@@ -10,7 +9,6 @@ export default function CurrentTask({ taskName, id }) {
     trackEditId,
     addPastTrack,
     userTasks,
-    pastUserTask,
   } = useTaskStore();
 
   function handleEdit() {

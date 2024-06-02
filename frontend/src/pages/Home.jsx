@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "../components/ui/button";
-import { Checkbox } from "../components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { useTaskStore } from "@/store/store";
-import { Link } from "react-router-dom";
 import CurrentTask from "@/components/ui/Tasks/CurrentTask";
 import EditedTask from "@/components/ui/Tasks/EditedTask";
 import PastTask from "@/components/ui/Tasks/PastTask";
@@ -14,12 +12,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
     - Make the user plan his Task and be able to see his task easily
     - Encourage the user to keep tasks below than 5
     - Simply design and strong functionality  
-
-  What to fix?
-   - Improve UI (position of the To-Do) 
-   - Make it responsive
-
-
  */
 
 export default function Home() {
@@ -30,6 +22,7 @@ export default function Home() {
     inputTask,
     editedTaskId,
     deleteUserTask,
+    pastUserTask,
   } = useTaskStore();
   const [display, setDisplay] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -98,29 +91,33 @@ export default function Home() {
             </Button>
           </div>
 
-          {/* Current and Past task */}
           <div className="flex w-40 justify-around">
             <p>Current</p>
             <p>Past</p>
           </div>
+          {/* Task sections */}
+          <div className="md:grid md:grid-cols-2 bg-slate-600">
+            <div className=" bg-purple-100 p-2">
+              {/* current tasks */}
+              <h3>{` Remaining Task (${userTasks.length}/5)`}</h3>
+              <ul className="flex flex-col items-center">
+                {userTasks.map(({ taskName, id, index }) => (
+                  <li className="flex text-center" key={id}>
+                    {id === editedTaskId ? (
+                      <EditedTask />
+                    ) : (
+                      <CurrentTask taskName={taskName} id={id} />
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Track tasks */}
-          <h3>{`(${userTasks.length}/5)`}</h3>
-
-          {/* Tasks */}
-          <ul className="flex flex-col items-center">
-            {userTasks.map(({ taskName, id, index }) => (
-              <li className="flex text-center" key={id}>
-                {id === editedTaskId ? (
-                  <EditedTask />
-                ) : (
-                  <CurrentTask taskName={taskName} id={id} />
-                )}
-              </li>
-            ))}
-            <h3>Past Task</h3>
-            {<PastTask />}
-          </ul>
+            {/* past sections  */}
+            <div className="bg-red-100 p-2">
+              {pastUserTask.length > 0 && <PastTask />}
+            </div>
+          </div>
         </div>
       </div>
     </>
