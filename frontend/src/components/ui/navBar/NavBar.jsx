@@ -1,27 +1,28 @@
 import { useState } from "react";
 import barIcon from "../../../assets/barIcon.svg";
+import closeIcon from "../../../assets/closeIcon.svg";
+
 import { Link } from "react-router-dom";
 
 const NavLinks = () => (
   <>
-    <a href="#" className="pointer-events-none ">
+    <a href="#" className="pointer-events-none text-xl">
       Planning
     </a>
-    <Link to="Login" className="pointer-events-none">
+    <Link to="Login" className="pointer-events-none text-xl">
       Login
     </Link>
-    <Link to="#" className="pointer-events-none">
+    <Link to="#" className="pointer-events-none text-xl">
       See more
     </Link>
   </>
 );
 export default function NavBar() {
+  const [isOpen, setIsOpen] = useState(false);
   // NavLinks are better than Links (Keep in mind for future changes )
 
-  const [isOpen, setIsOpen] = useState(false);
-
   function showNavBar() {
-    setIsOpen(!isOpen);
+    setIsOpen(() => !isOpen);
   }
 
   return (
@@ -35,11 +36,11 @@ export default function NavBar() {
             onClick={showNavBar}
           />
           {isOpen && (
-            <div className="h-96 w-40 absolute top-0 left-0 bg-yellow-700 p-2  rounded-br-lg rounded-tr-lg text-white flex flex-col">
+            <div className="h-96 w-40 absolute top-0 left-0 bg-gray-800 p-2  rounded-br-lg rounded-tr-lg text-white flex flex-col">
               <img
-                src="#"
+                src={closeIcon}
                 alt="Close"
-                className="relative left-24"
+                className="relative left-24 h-4 w-16 fill-white text-white"
                 onClick={showNavBar}
               />
               <NavLinks />
