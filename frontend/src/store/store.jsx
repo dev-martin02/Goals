@@ -32,6 +32,7 @@ export const useTaskStore = create((set) => ({
     set((state) => ({
       pastUserTask: state.pastUserTask.filter((task) => task.id !== taskId),
     })),
+  resetPastTask: () => set({ pastUserTask: [] }),
 
   // Edit Task section
   editedTaskName: "",
