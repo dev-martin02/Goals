@@ -9,7 +9,7 @@ const NavLinks = () => (
     <a href="#" className="pointer-events-none text-xl">
       Planning
     </a>
-    <Link to="Login" className="pointer-events-none text-xl">
+    <Link to="Login" className="text-xl">
       Login
     </Link>
     <Link to="#" className="pointer-events-none text-xl">
