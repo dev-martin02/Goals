@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useTaskStore } from "@/store/store";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -8,9 +9,14 @@ import { Link } from "react-router-dom";
     - Make the user Login to his account
     - Encourage new user to create an account 
     - Easier way to create an account or login 
+
+    - Add alert message to this page and signUp page
+    - Improve UI of the page 
+    - Icons and another background 
 */
 
 export default function Login() {
+  const { setUsername } = useTaskStore();
   const url = "http://localhost:3000/login";
 
   const handleOnSubmit = async (event) => {
@@ -22,18 +28,14 @@ export default function Login() {
     // Go to each key and create a new plain object with the content inside of it
     for (let key of formData.keys()) {
       formDataObject[key] = formData.get(key);
-    } // Pass the form element to FormData
-    console.log(formDataObject);
+    }
+
     try {
       const sendData = await axios.post(url, formDataObject);
-      console.log(sendData);
-      if (sendData.ok) {
-        console.log("Success:", sendData);
-      } else {
-        console.log("Update failed:", sendData.statusText);
-      }
+      const response = sendData.data.message;
+      await response.map(({ username }) => setUsername(username));
     } catch (error) {
-      console.log(error.message);
+      console.log(error.response.data);
     }
   };
 

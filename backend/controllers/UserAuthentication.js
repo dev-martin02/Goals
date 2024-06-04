@@ -2,12 +2,12 @@ const User = require("../models/User");
 
 exports.addUser = async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
     const user = await User.find({ username });
     if (user.length !== 0) {
       throw new Error("This Username is already in use");
     }
-    const newUser = new User({ username, password });
+    const newUser = new User({ username, password, email });
     await newUser.save();
     res
       .status(200)
@@ -29,6 +29,7 @@ exports.login = async (req, res) => {
     }
     res.status(200).json({ message: user });
   } catch (error) {
-    res.status(401).json({ message: error.message });
+    console.log(error.message);
+    res.status(404).json({ message: error.message });
   }
 };

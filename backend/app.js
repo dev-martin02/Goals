@@ -2,11 +2,17 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-//Why this line of code?
-app.use(bodyParser.urlencoded({ extended: false }));
+const cors = require("cors");
 
-// parse application/json
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true, // Ensures cookies are accepted from the frontend
+  })
+);
 
 const userRoutes = require("./router/UserRouters");
 
@@ -19,7 +25,12 @@ async function connectionToDB() {
   }
 }
 connectionToDB().then(() =>
-  app.listen(3000, (req, res) => console.log("Backend is running! "))
+  app.listen(3000, () => console.log("Backend is running!"))
 );
 
 app.use("/", userRoutes);
+
+/*
+ - Implement authentication (jwt, etc...)
+ - Store tasks in database
+*/

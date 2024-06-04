@@ -12,6 +12,13 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
     - Make the user plan his Task and be able to see his task easily
     - Encourage the user to keep tasks below than 5
     - Simply design and strong functionality  
+
+    Task !
+    - Improve background of the task 
+    - Improve design on the website 
+    - Add animation and improve the alert message 
+    - Reduce code
+    - Add pagination (past task)
  */
 
 export default function Home() {
@@ -23,6 +30,7 @@ export default function Home() {
     editedTaskId,
     deleteUserTask,
     pastUserTask,
+    Username,
   } = useTaskStore();
   const [display, setDisplay] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -77,7 +85,7 @@ export default function Home() {
       <div className="flex flex-col mt-20 items-center">
         <div className="flex flex-col justify-center items-center w-90">
           {/* Title */}
-          <h1 className="text-5xl mb-10">To Do</h1>
+          <h1 className="text-5xl mb-10">{`Task for ${Username}`}</h1>
           {/* Input */}
           <div className="flex">
             <Input

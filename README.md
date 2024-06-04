@@ -16,7 +16,14 @@
 [x] Improve UI of home page (past task)
 [x] Add new section "Find your Goals"
 
-[] Improve nav-Bar
-[] Add icons and improve interaction
-[] Work on Goals components
+[x] Only allow 5 task at the time
+[x] Improve nav-Bar
+[x] Improve UI of To-Do, icons, alert message, etc...
+[x] Fix bugs of To-Do (Past To-Do)
+[] Add mobile responsive to the UI of the page
+[] Add pagination to the past section
 [] Connect the backend with a database
+
+[] Work on planning section
+[] Find a way to make the user do 5 steps before showing the results
+[] how to make make the goals be number 1, 2, 3...

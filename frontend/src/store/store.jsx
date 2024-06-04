@@ -6,6 +6,9 @@ function randomId() {
 }
 
 export const useTaskStore = create((set) => ({
+  Username: "",
+  setUsername: (name) => set({ Username: name }),
+
   // Current Task
   inputTask: "",
   userTasks: [],
