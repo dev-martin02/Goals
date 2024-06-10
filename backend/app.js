@@ -3,9 +3,11 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const cookieParser = require('cookie-parser')
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser())
 
 app.use(
   cors({
@@ -31,6 +33,6 @@ connectionToDB().then(() =>
 app.use("/", userRoutes);
 
 /*
- - Implement authentication (jwt, etc...)
- - Store tasks in database
+- Review Authentication code and adjust the changes to the frontend
+- Store tasks in database
 */
