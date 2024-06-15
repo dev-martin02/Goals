@@ -16,7 +16,7 @@ const requireAuth = (req, res, next) => {
       }
     });
   } else {
-    res.json({ message: "Your not authenticated!!" });
+    res.status(401).json({ message: "Your not authenticated!!" });
   }
 };
 
