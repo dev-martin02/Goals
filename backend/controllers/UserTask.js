@@ -31,7 +31,7 @@ exports.addTask = async (req, res) => {
   }
 };
 
-// Update task title and progress
+// Update the title and progress of a task
 exports.updateTask = async (req, res) => {
   try {
     const { title, taskId, completed } = req.body;
@@ -45,6 +45,7 @@ exports.updateTask = async (req, res) => {
     res.status(401).json({ message: err.message });
   }
 };
+
 exports.deleteTask = async (req, res) => {
   try {
     const { taskId } = req.body;
