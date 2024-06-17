@@ -20,7 +20,6 @@ const NavLinks = () => (
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   // NavLinks are better than Links (Keep in mind for future changes )
-
   function showNavBar() {
     setIsOpen(() => !isOpen);
   }
@@ -36,7 +35,7 @@ export default function NavBar() {
             onClick={showNavBar}
           />
           {isOpen && (
-            <div className="h-96 w-40 absolute top-0 left-0 bg-gray-800 p-2  rounded-br-lg rounded-tr-lg text-white flex flex-col">
+            <div className="h-72 w-40 absolute z-10 top-0 left-0 bg-gray-800 p-2 rounded-br-lg rounded-tr-lg text-white flex flex-col">
               <img
                 src={closeIcon}
                 alt="Close"

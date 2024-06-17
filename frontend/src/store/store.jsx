@@ -14,6 +14,8 @@ export const useTaskStore = create((set) => ({
   userTasks: [],
   trackUserInput: (newTask) => set({ inputTask: newTask }),
 
+  fetchUserTask: (data) => set({ userTasks: data }),
+
   addUserTask: (taskName) =>
     set((state) => ({
       userTasks: [...state.userTasks, { taskName, id: randomId() }],

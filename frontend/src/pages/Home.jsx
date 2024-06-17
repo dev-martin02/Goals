@@ -7,23 +7,13 @@ import EditedTask from "@/components/ui/Tasks/EditedTask";
 import PastTask from "@/components/ui/Tasks/PastTask";
 import NavBar from "@/components/ui/navBar/NavBar";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-/*
-  What is the purpose of this page?
-    - Make the user plan his Task and be able to see his task easily
-    - Encourage the user to keep tasks below than 5
-    - Simply design and strong functionality  
-
-    Task !
-    - Improve background of the task 
-    - Improve design on the website 
-    - Add animation and improve the alert message 
-    - Reduce code
-    - Add pagination (past task)
- */
+import { useFetchHook } from "@/helpers/fetchHooks";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const {
     userTasks,
+    setUsername,
     trackUserInput,
     addUserTask,
     inputTask,
@@ -32,8 +22,10 @@ export default function Home() {
     pastUserTask,
     Username,
   } = useTaskStore();
+  const { data, fetchData } = useFetchHook();
   const [display, setDisplay] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const navigate = useNavigate();
 
   function addTask() {
     if (inputTask) {
@@ -56,25 +48,46 @@ export default function Home() {
     </Alert>
   );
 
+  const ShowMessage = () => {
+    if (userTasks.length >= 6) {
+      setDisplay(true);
+      deleteUserTask(userTasks[userTasks.length - 1].id);
+      setAlertMessage({
+        message: "Complete a Task before adding another one",
+        variantName: "destructive",
+      });
+      setTimeout(() => setDisplay(false), 1000);
+    } else {
+      return null;
+    }
+  };
+
   useEffect(() => {
-    const ShowMessage = () => {
-      if (userTasks.length >= 6) {
-        setDisplay(true);
-        deleteUserTask(userTasks[userTasks.length - 1].id);
-        setAlertMessage({
-          message: "Complete a Task before adding another one",
-          variantName: "destructive",
-        });
-        setTimeout(() => setDisplay(false), 1000);
-      } else {
-        return null;
-      }
-    };
     ShowMessage();
   }, [userTasks, display]);
 
+  const welcomeMessage = !Username
+    ? "Task for Today!"
+    : `Hello ${Username.username}, these are your tasks `;
+
+  useEffect(() => {
+    if (Username) {
+      fetchData("/");
+    }
+  }, [Username]);
+
+  if (data) {
+    console.log(data);
+  }
+
+  const handleLogout = async () => {
+    await fetchData("/logOut");
+    setUsername(null);
+    navigate("/login");
+  };
   return (
     <>
+      <button onClick={handleLogout}>LogOut</button>
       <NavBar />
       {display && (
         <AlertMessage
@@ -85,7 +98,7 @@ export default function Home() {
       <div className="flex flex-col mt-20 items-center">
         <div className="flex flex-col justify-center items-center w-90">
           {/* Title */}
-          <h1 className="text-5xl mb-10">{`Task for ${Username}`}</h1>
+          <h1 className="text-5xl mb-10">{`${welcomeMessage}`}</h1>
           {/* Input */}
           <div className="flex">
             <Input
@@ -99,13 +112,9 @@ export default function Home() {
             </Button>
           </div>
 
-          <div className="flex w-40 justify-around">
-            <p>Current</p>
-            <p>Past</p>
-          </div>
           {/* Task sections */}
-          <div className="md:grid md:grid-cols-2 bg-slate-600">
-            <div className=" bg-purple-100 p-2">
+          <div className="md:grid md:grid-cols-2 mt-2">
+            <div className=" relative bg-purple-100 p-2 w-96 h-96">
               {/* current tasks */}
               <h3>{` Remaining Task (${userTasks.length}/5)`}</h3>
               <ul className="flex flex-col items-center">
@@ -122,7 +131,7 @@ export default function Home() {
             </div>
 
             {/* past sections  */}
-            <div className="bg-red-100 p-2">
+            <div className="relative bg-red-100 p-2 w-96 h-96">
               {pastUserTask.length > 0 && <PastTask />}
             </div>
           </div>
@@ -131,3 +140,16 @@ export default function Home() {
     </>
   );
 }
+
+/*
+  What is the purpose of this page?
+    - Make the user plan his Task and be able to see his task easily
+    - Encourage the user to keep tasks below than 5
+    - Simply design and strong functionality  
+
+    Task !
+    - Fix how you approach the task 
+    - Reduce code
+    - Separate you code 
+    - Add pagination (past task)
+*/

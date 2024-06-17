@@ -16,7 +16,7 @@ export default function PastTask() {
       </div>
 
       {pastUserTask.map(({ taskName, id }) => (
-        <div className="flex m-2 ring-2 p-2 rounded-lg w-96 ring-zinc-600">
+        <div className="flex m-2 ring-2 p-2 rounded-lg ring-zinc-600">
           <p
             className="text-sm text-muted-foreground w-96"
             onClick={() => deletePastTask(id)}

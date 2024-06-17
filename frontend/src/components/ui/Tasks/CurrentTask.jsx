@@ -11,11 +11,20 @@ export default function CurrentTask({ taskName, id }) {
     userTasks,
   } = useTaskStore();
 
+  /*
+
+ Make a request to the backend for each update ?
+*/
+
   function handleEdit() {
     trackEditId(id);
     trackEditTask(taskName);
   }
 
+  /*
+    Change---
+    If task.completed === true; addPastTrack(taskName)
+  */
   function moveToPastTrack(taskId) {
     const { taskName, id } = userTasks.find((task) => task.id === taskId);
     addPastTrack(taskName);
@@ -23,8 +32,8 @@ export default function CurrentTask({ taskName, id }) {
   }
 
   return (
-    <div className="flex m-2 ring-2 p-2 rounded-lg w-96 ring-zinc-600">
-      <div className="flex flex-1 items-center space-x-2">
+    <div className="flex m-2 ring-2 p-2 rounded-lg  ring-zinc-600">
+      <div className="flex flex-1 items-center w-52 space-x-2">
         <Checkbox id={id} onCheckedChange={() => moveToPastTrack(id)} />
         <label htmlFor={id}>{taskName}</label>
       </div>
